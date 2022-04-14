@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+   display: flex;
+   justify-content: center;
+   text-align: center;
+}
+h2{
+    margin: 10px 0;
+    grid-area: A;
+    align-self: center;
+}
+.whoWins{
+    grid-area: D;
+}
+.container{
+    max-width: 1280px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-areas:
+    "A A A A A A A A"
+    "D D D D D D D D"
+    "B B B B C C C C"
+    ;
+}
+
+.player-options{
+    width: 100%;
+    grid-area: B;
+    align-self: start;
+}
+.enemy-options{
+    width: 100%;
+    grid-area: C;
+    align-self: end;
+}
+
+.player-options div img,
+.enemy-options div img{
+    width: 200px;
+    cursor: pointer;
+    margin: 20px;
+    opacity: 0.2;
+}

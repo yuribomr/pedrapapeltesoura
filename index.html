@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pedra, Papel ou Tesoura</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Pedra, Papel ou Tesoura</h2>
+        <p class="whoWins">Aguardando sua jogada...</p>
+        <div class="player-options">
+            <div><img opt="rock" src="rock.png"></div>
+            <div><img  opt="paper" src="paper.png"></div>
+            <div><img  opt="scizor" src="scisor.png"></div>
+        </div>
+        <div class="enemy-options">
+            <div><img opt="rock" src="rock.png"></div>
+            <div><img  opt="paper" src="paper.png"></div>
+            <div><img  opt="scizor" src="scisor.png"></div>
+        </div>
+    </div>
+
+    <script>
+        var elements = document.querySelectorAll('.player-options div > img');
+        var enemyElements = document.querySelectorAll('.enemy-options div > img');
+        var winner = document.querySelector(".whoWins");
+        var enemyOpt = "";
+        var playerOpt = "";
+
+        function whoWins(){
+            if(playerOpt == enemyOpt){
+                winner.innerHTML = "Drawww!!!"
+            }else if(playerOpt == "rock" && enemyOpt == "paper" || playerOpt == "paper" && enemyOpt == "scizor" || playerOpt == "scizor" && enemyOpt == "rock"){
+                winner.innerHTML = "Enemy Wins!!!";
+            }else{
+                winner.innerHTML= 'Players Wins!!!';
+            }
+        }
+
+        function resetWinner(){
+            winner.innerHTML = "Aguardando sua jogada...";
+            for(i = 0; i< enemyElements.length; i++){
+                enemyElements[i].style.opacity = 0.2;
+            }
+            for(i = 0; i< elements.length; i++){
+                elements[i].style.opacity = 0.2;
+            }
+        }
+
+        function resetEnemy(){
+            for(i = 0; i< enemyElements.length; i++){
+                enemyElements[i].style.opacity = 0.2;
+            }
+        }
+
+        function enemyPlay(){
+            let rand = Math.floor(Math.random()*3);
+
+            for(i = 0; i<enemyElements.length; i++){
+                if(i == rand){
+                    enemyElements[i].style.opacity = 1;
+                    enemyOpt = enemyElements[i].getAttribute("opt");
+                }
+            }
+        }
+
+        function resetOpacityPlayer(){
+            for(i = 0; i< elements.length; i++){
+                elements[i].style.opacity = 0.2;
+            }
+        }
+
+        for(i = 0; i< elements.length; i++){
+            elements[i].addEventListener("click", (t)=>{
+                resetOpacityPlayer();
+                resetEnemy();
+                enemyPlay();
+                t.target.style.opacity = 1;
+                playerOpt = t.target.getAttribute("opt");
+                whoWins();
+                setTimeout(()=>{resetWinner();}, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
